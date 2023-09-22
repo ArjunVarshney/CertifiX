@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { certificateDetailStore } from "@/hooks/certificate-detail-store";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Certificate = () => {
    const router = useRouter();
@@ -16,6 +17,14 @@ const Certificate = () => {
             competetion: state.competetion,
          };
       });
+
+   const [isMounted, setIsMounted] = useState(false);
+
+   useEffect(() => {
+      setIsMounted(true);
+   }, []);
+
+   if (!isMounted) return null;
 
    if (!name || !phone || !email || !adhar_number || !competetion) {
       router.push("/generate");

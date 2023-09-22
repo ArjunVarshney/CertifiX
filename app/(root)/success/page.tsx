@@ -3,6 +3,7 @@
 import { certificateDetailStore } from "@/hooks/certificate-detail-store";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Success = () => {
    const router = useRouter();
@@ -16,6 +17,14 @@ const Success = () => {
             competetion: state.competetion,
          };
       });
+
+   const [isMounted, setIsMounted] = useState(false);
+
+   useEffect(() => {
+      setIsMounted(true);
+   }, []);
+
+   if (!isMounted) return null;
 
    if (!name || !phone || !email || !adhar_number || !competetion) {
       router.push("/");
@@ -33,7 +42,8 @@ const Success = () => {
                Success ! You can now see your certificate on digilocker
             </div>
             <div className="mt-20 max-w-md text-center">
-               You will be redirected back to Home in 5 seconds
+               You will be redirected back to Home in{" "}
+               <span className="font-bold">5</span> seconds
             </div>
          </div>
       </div>
