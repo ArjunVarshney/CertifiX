@@ -22,6 +22,9 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
+import { certificateDetailStore } from "@/hooks/certificate-detail-store";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
    name: z.string().min(2, "The name must be more than two alphabets"),
@@ -32,6 +35,9 @@ const formSchema = z.object({
 });
 
 export function GenerateForm() {
+   const updateDetails = certificateDetailStore((state) => state.updateDetails);
+   const router = useRouter();
+
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -44,7 +50,14 @@ export function GenerateForm() {
    });
 
    function onSubmit(values: z.infer<typeof formSchema>) {
-      console.log(values);
+      updateDetails({
+         name: values.name,
+         phone: values.phone,
+         email: values.email,
+         adhar: values.adhar_number,
+         competetion: values.competetion,
+      });
+      router.push("/certificate");
    }
 
    const formFields = [
@@ -85,7 +98,7 @@ export function GenerateForm() {
       <Form {...form}>
          <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 border rounded-lg p-8 m-auto w-[400px]"
+            className="space-y-8 border rounded-lg p-8 m-auto w-[400px] max-w-[100vw]"
          >
             {formFields.map((formField) => (
                <FormField
