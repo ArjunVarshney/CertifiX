@@ -18,7 +18,6 @@ const Success = () => {
       });
 
    if (!name || !phone || !email || !adhar_number || !competetion) {
-      alert("Some Error occured !");
       router.push("/");
    }
 

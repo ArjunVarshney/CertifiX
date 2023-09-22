@@ -18,7 +18,6 @@ const Certificate = () => {
       });
 
    if (!name || !phone || !email || !adhar_number || !competetion) {
-      alert("Kindly provide all the details first");
       router.push("/generate");
    }
    const getDate = () => {
