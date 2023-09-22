@@ -64,7 +64,7 @@ export function GenerateForm() {
       {
          label: "Name",
          name: "name",
-         placeholder: "Something",
+         placeholder: "Name",
       },
       {
          label: "Phone no.",

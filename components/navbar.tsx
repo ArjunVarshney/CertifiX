@@ -32,13 +32,13 @@ const Navbar = () => {
                         className="text-white dark:text-black"
                      />
                   </div>
-                  Certificate
+                  CertifiX
                </Link>
                <MainNav routes={routes} />
             </div>
             <div className="flex items-center space-x-4 ml-auto">
                <Link
-                  href="https://github.com/ArjunVarshney/Body-works"
+                  href="https://github.com/ArjunVarshney/CertifiX"
                   className="p-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 hidden sm:block"
                >
                   <Code2 size={20} />
@@ -48,7 +48,7 @@ const Navbar = () => {
                   routes={[
                      ...routes,
                      {
-                        href: "https://github.com/ArjunVarshney/Body-works",
+                        href: "https://github.com/ArjunVarshney/CertifiX",
                         label: "View on Github",
                         active: false,
                      },
