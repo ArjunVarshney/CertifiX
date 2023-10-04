@@ -4,8 +4,9 @@ import Link from "next/link";
 import MainNav from "./main-nav";
 import { ModeToggle } from "./mode-toggle";
 import MobileNav from "./mobile-nav";
-import { usePathname } from "next/navigation";
-import { useState } from "react"; 
+import { usePathname } from "next/navigation"; 
+import { useState, useEffect } from "react";
+import Web3 from 'web3';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -21,17 +22,33 @@ const Navbar = () => {
   const [walletConnected, setWalletConnected] = useState(false);
 
   const connectWallet = () => {
-    ethereum
-      .request({ method: 'eth_requestAccounts' })
-      .then(accounts => {
-        const account = accounts[0];
-        console.log(account);
-        setWalletConnected(true);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    if (typeof window.ethereum !== 'undefined') {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then(accounts => {
+          const account = accounts[0];
+          console.log(account);
+          setWalletConnected(true);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      console.error('Ethereum provider not available');
+    }
   };
+
+  useEffect(() => {
+    // Check if Web3 is already initialized
+    if (typeof window.ethereum !== 'undefined') {
+      const web3 = new Web3(window.ethereum);
+      web3.eth.getAccounts().then(accounts => {
+        if (accounts.length > 0) {
+          setWalletConnected(true);
+        }
+      });
+    }
+  }, []);
 
   return (
     <div className="px-4 h-16 flex items-center border-b">
